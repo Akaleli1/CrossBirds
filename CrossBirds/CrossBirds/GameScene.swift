@@ -10,10 +10,18 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    let myCamera = SKCameraNode()
+
     override func didMove(to view: SKView) {
         
+        addmyCamera()
         
         
+    }
+    
+    func addmyCamera(){
+        
+        addChild(myCamera) //to initilaze myCamera, added as a childnode.
     }
     
 }

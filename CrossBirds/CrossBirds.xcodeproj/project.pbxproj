@@ -15,6 +15,7 @@
 		47B4E355273851FF0012D895 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47B4E353273851FF0012D895 /* Main.storyboard */; };
 		47B4E357273852010012D895 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47B4E356273852010012D895 /* Assets.xcassets */; };
 		47B4E35A273852010012D895 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47B4E358273852010012D895 /* LaunchScreen.storyboard */; };
+		47B4E362273888B30012D895 /* MyTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 47B4E361273888B30012D895 /* MyTileSet.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		47B4E356273852010012D895 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47B4E359273852010012D895 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47B4E3602738550E0012D895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		47B4E361273888B30012D895 /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				47B4E351273851FF0012D895 /* GameViewController.swift */,
 				47B4E353273851FF0012D895 /* Main.storyboard */,
 				47B4E356273852010012D895 /* Assets.xcassets */,
+				47B4E361273888B30012D895 /* MyTileSet.sks */,
 				47B4E358273852010012D895 /* LaunchScreen.storyboard */,
 			);
 			path = CrossBirds;
@@ -131,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47B4E362273888B30012D895 /* MyTileSet.sks in Resources */,
 				47B4E355273851FF0012D895 /* Main.storyboard in Resources */,
 				47B4E34C273851FF0012D895 /* GameScene.sks in Resources */,
 				47B4E357273852010012D895 /* Assets.xcassets in Resources */,
