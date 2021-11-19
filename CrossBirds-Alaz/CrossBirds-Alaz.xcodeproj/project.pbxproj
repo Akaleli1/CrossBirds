@@ -16,6 +16,7 @@
 		47730BE527470C9B00E366CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47730BE427470C9B00E366CF /* Assets.xcassets */; };
 		47730BE827470C9B00E366CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47730BE627470C9B00E366CF /* LaunchScreen.storyboard */; };
 		47730BF027470F4F00E366CF /* MyTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 47730BEF27470F4F00E366CF /* MyTileSet.sks */; };
+		47A8952327471F6200AEE56C /* MyCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A8952227471F6200AEE56C /* MyCamera.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		47730BE727470C9B00E366CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47730BEE27470D9200E366CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		47730BEF27470F4F00E366CF /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
+		47A8952227471F6200AEE56C /* MyCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCamera.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				47730BE427470C9B00E366CF /* Assets.xcassets */,
 				47730BE627470C9B00E366CF /* LaunchScreen.storyboard */,
 				47730BEF27470F4F00E366CF /* MyTileSet.sks */,
+				47A8952227471F6200AEE56C /* MyCamera.swift */,
 			);
 			path = "CrossBirds-Alaz";
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47A8952327471F6200AEE56C /* MyCamera.swift in Sources */,
 				47730BDE27470C9900E366CF /* GameScene.swift in Sources */,
 				47730BE027470C9900E366CF /* GameViewController.swift in Sources */,
 				47730BD827470C9900E366CF /* AppDelegate.swift in Sources */,
