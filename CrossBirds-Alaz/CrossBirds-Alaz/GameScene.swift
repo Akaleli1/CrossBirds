@@ -19,7 +19,6 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         setupLevel()
-        
         setupGestureRecognizer()
         
     }
@@ -30,7 +29,7 @@ class GameScene: SKScene {
         view.addGestureRecognizer(panRecognizer)
     }
     
-    func setupLevel(){
+    func setupLevel(){  //for my levels
         if let mapNode = childNode(withName: "Tile Map Node") as? SKTileMapNode {
             self.mapNode = mapNode
         }
@@ -45,8 +44,8 @@ class GameScene: SKScene {
         
         addChild(myCamera)   //we added our camera as a child node
         myCamera.position = CGPoint(x: view.bounds.width/2, y:view.bounds.size.height/2)  //setting the camera position in the middle of x-axis and y-axis.
-        camera = myCamera
-        myCamera.setConstraints(with: self, and: mapNode.frame, to: nil)
+        camera = myCamera  //settin myCamera as the camera of my game
+        myCamera.setConstraints(with: self, and: mapNode.frame, to: nil)//defining the scene
     }
 }
 
