@@ -14,7 +14,8 @@ class GameScene: SKScene {
     
     let myCamera = MyCamera()
     var panRecognizer = UIPanGestureRecognizer()
-    
+    var pinchRecognizer = UIPinchGestureRecognizer()
+    var maxScale: CGFloat = 0
     
     override func didMove(to view: SKView) {
         
@@ -27,11 +28,16 @@ class GameScene: SKScene {
         guard let view = view else {return} //checking if the view property contains a value
         panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan)) //specified target and action for panRecognizer
         view.addGestureRecognizer(panRecognizer)
+        
+        pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(pinch)) //set the parameters
+        view.addGestureRecognizer(pinchRecognizer) //adding it to our view
     }
     
     func setupLevel(){  //for my levels
         if let mapNode = childNode(withName: "Tile Map Node") as? SKTileMapNode {
             self.mapNode = mapNode
+            
+            maxScale = mapNode.mapSize.height / frame.size.height
         }
         
         addCamera()
@@ -60,6 +66,36 @@ extension GameScene{
         //this is how scrolling or dragging is simulated
         sender.setTranslation(CGPoint.zero, in: view)
     
+    }
+    
+    @objc func pinch(sender: UIPinchGestureRecognizer){
+        
+        guard let view = view else{return}
+        
+        if sender.numberOfTouches == 2 {  //for users to able to zoom through pinch they need 2 touches
+            let locationInView = sender.location(in: view)
+            let myLocation = convertPoint(fromView: locationInView)
+            if sender.state == .changed{
+                let changedScale = 1/sender.scale
+                let myScale = myCamera.yScale * changedScale
+                    
+                if myScale < maxScale && myScale > 0.5{
+                    myCamera.setScale(myScale)
+                }
+                
+                
+                
+                let locationAfterScale = convertPoint(fromView: locationInView)
+                let locationDelta = CGPoint(x: myLocation.x - locationAfterScale.x, y:myLocation.y - locationAfterScale.y)
+                let myNewPosition = CGPoint(x: myCamera.position.x + locationDelta.x, y:myCamera.position.y + locationDelta.y)
+                myCamera.position = myNewPosition
+                sender.scale = 1.0 //this is where is set the scale size
+                
+                // To not have problems when scales are changed, I add:
+                myCamera.setConstraints(with: self, and: mapNode.frame, to: nil)
+            }
+        }
+        
     }
     
 }
