@@ -61,7 +61,7 @@ extension GameScene{
     @objc func pan(sender: UIPanGestureRecognizer){  //all the functionality
         guard let view = view else {return} //checking if the view property contains a value
         
-        let translation = sender.translation (in: view)
+        let translation = sender.translation(in: view) * myCamera.yScale
         myCamera.position = CGPoint(x: myCamera.position.x - translation.x, y: myCamera.position.y + translation.y)
         //this is how scrolling or dragging is simulated
         sender.setTranslation(CGPoint.zero, in: view)
@@ -86,8 +86,8 @@ extension GameScene{
                 
                 
                 let locationAfterScale = convertPoint(fromView: locationInView)
-                let locationDelta = CGPoint(x: myLocation.x - locationAfterScale.x, y:myLocation.y - locationAfterScale.y)
-                let myNewPosition = CGPoint(x: myCamera.position.x + locationDelta.x, y:myCamera.position.y + locationDelta.y)
+                let locationDelta = myLocation - locationAfterScale
+                let myNewPosition = locationDelta + myCamera.position
                 myCamera.position = myNewPosition
                 sender.scale = 1.0 //this is where is set the scale size
                 
