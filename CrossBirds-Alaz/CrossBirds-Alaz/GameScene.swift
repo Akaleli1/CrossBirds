@@ -17,6 +17,10 @@ class GameScene: SKScene {
     var pinchRecognizer = UIPinchGestureRecognizer()
     var maxScale: CGFloat = 0
     
+    var bird = myBird(type: .red)  //red bird initialized as default
+    let anchor = SKNode()                               //it will be an anchor point for my birds (launch)
+    
+    
     override func didMove(to view: SKView) {
         
         setupLevel()
@@ -41,6 +45,11 @@ class GameScene: SKScene {
         }
         
         addCamera()
+        anchor.position = CGPoint(x: frame.midX/2, y: frame.midY/2)
+        addChild(anchor)                                             //to add the anchor node to my scene
+        
+        addmyBird()
+        
     }
     
     func addCamera(){  //custom method to add my camera
@@ -52,6 +61,13 @@ class GameScene: SKScene {
         myCamera.position = CGPoint(x: view.bounds.width/2, y:view.bounds.size.height/2)  //setting the camera position in the middle of x-axis and y-axis.
         camera = myCamera  //settin myCamera as the camera of my game
         myCamera.setConstraints(with: self, and: mapNode.frame, to: nil)//defining the scene
+    }
+    
+    func addmyBird(){
+        
+        bird.position = anchor.position //since I will be launching my birds from anchor point,
+        addChild(bird)
+        
     }
 }
 
