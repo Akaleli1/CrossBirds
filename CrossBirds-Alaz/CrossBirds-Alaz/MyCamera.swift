@@ -24,7 +24,18 @@ class MyCamera: SKCameraNode {  //this method doesn not let the user moce the ca
         let yRange = SKRange(lowerLimit: insetContentRect.minY, upperLimit:insetContentRect.maxY)
         let levelEdgeConstraint = SKConstraint.positionX(xRange, y: yRange)
         
-        constraints = [levelEdgeConstraint]
+        
+        if let node = node {
+            let zeroRange = SKRange(constantValue: 0.0)  //for our camera to follow our bird
+            let positionConstraint = SKConstraint.distance(zeroRange, to: node)
+            constraints = [positionConstraint, levelEdgeConstraint]
+            
+            
+        } else {
+            constraints = [levelEdgeConstraint]
+        }
+        
+       
     }
 
 }
