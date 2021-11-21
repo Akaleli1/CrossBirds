@@ -23,8 +23,8 @@ class GameScene: SKScene {
     
     var bird = myBird(type: .red)  //red bird initialized as default
     var birds = [
-        myBird(type: .red)
-        myBird(type: .blue)
+        myBird(type: .red),
+        myBird(type: .blue),
         myBird(type: .yellow)
     ]
     
@@ -66,6 +66,7 @@ class GameScene: SKScene {
             moveCameraToOld.timingMode = .easeInEaseOut  //this will slow down the accelaration
             myCamera.run(moveCameraToOld, completion:{
                 self.panRecognizer.isEnabled = true
+                self.addmyBird()
             })
         case .animating:
             break
@@ -122,6 +123,25 @@ class GameScene: SKScene {
         
         addCamera()
         
+        for child in mapNode.children{
+            if let child = child as? SKSpriteNode{
+                
+                guard let name = child.name else{continue}
+                if !["wood", "stone", "glass"].contains(name) {continue}
+                
+                guard let type = myBlockType(rawValue: name) else {continue}
+                let block = MyBlock(type: type)
+                
+                block.size = child.size   //block features
+                block.position = child.position
+                block.color = UIColor.brown
+                block.createPhysicsBody()   //created a physicsbody
+                mapNode.addChild(block)  //aded to game
+                child.color = UIColor.clear
+                
+             }
+        }
+        
         let physicsRect = CGRect(x: 0, y: mapNode.tileSize.height, width: mapNode.frame.size.width, height: mapNode.frame.size.height - mapNode.tileSize.height)
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: physicsRect)    //making my camera move with my bird!
@@ -149,7 +169,15 @@ class GameScene: SKScene {
     
     func addmyBird(){
         
-        bird.physicsBody = SKPhysicsBody(rectangleOf: bird.size)
+        //first I will check whether I have a bird already or not
+        if birds.isEmpty {
+            print("No more birds")
+            return
+        }
+        
+        bird = birds.removeFirst()   //removing the bird, if there is any
+        
+        bird.physicsBody = SKPhysicsBody(rectangleOf: bird.size)  //adding the new bird
         bird.physicsBody?.categoryBitMask = PhysicsCategory.bird
         bird.physicsBody?.contactTestBitMask = PhysicsCategory.all
         bird.physicsBody?.collisionBitMask = PhysicsCategory.block | PhysicsCategory.edge
@@ -160,6 +188,8 @@ class GameScene: SKScene {
         addChild(bird)
         
         constraintToAnchor(active: true) //activating
+        
+        roundState = .ready
         
     }
     
