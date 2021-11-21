@@ -22,6 +22,13 @@ class GameScene: SKScene {
     var maxScale: CGFloat = 0
     
     var bird = myBird(type: .red)  //red bird initialized as default
+    var birds = [
+        myBird(type: .red)
+        myBird(type: .blue)
+        myBird(type: .yellow)
+    ]
+    
+    
     let anchor = SKNode()                               //it will be an anchor point for my birds (launch)
     
     var roundState = RoundState.ready
@@ -82,6 +89,9 @@ class GameScene: SKScene {
             
             bird.grabbed = false
             bird.birdisFlying = true
+            
+            roundState = .flying //changed the current state to flying
+            
             constraintToAnchor(active: false)
             
             let dx = anchor.position.x - bird.position.x
@@ -163,6 +173,19 @@ class GameScene: SKScene {
             bird.constraints?.removeAll()
         }
     }
+    
+    override func didSimulatePhysics() {  //to check birds physics property. (is resting?)
+        guard let physicsBody = bird.physicsBody else {return}
+        
+        if roundState == .flying && physicsBody.isResting{
+            myCamera.setConstraints(with: self, and: mapNode.frame, to: nil)
+            bird.removeFromParent()   //removing my bird because I dont need it
+            roundState = .finished //one round state is finished
+        }
+        
+    }
+    
+    
 }
 
 
