@@ -135,6 +135,9 @@ class GameScene: SKScene {
                 block.size = child.size   //block features
                 block.position = child.position
                 block.color = UIColor.brown
+                
+                block.zPosition = ZPosition.obstacles //our block will always be visible
+                
                 block.createPhysicsBody()   //created a physicsbody
                 mapNode.addChild(block)  //aded to game
                 child.color = UIColor.clear
