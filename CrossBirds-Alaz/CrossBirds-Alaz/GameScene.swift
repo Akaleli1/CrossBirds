@@ -8,6 +8,10 @@
 import SpriteKit
 import GameplayKit
 
+enum RoundState{
+    case ready, flying, finished, animating   //four state of the game
+}
+
 class GameScene: SKScene {
     
     var mapNode = SKTileMapNode()
@@ -20,6 +24,8 @@ class GameScene: SKScene {
     var bird = myBird(type: .red)  //red bird initialized as default
     let anchor = SKNode()                               //it will be an anchor point for my birds (launch)
     
+    var roundState = RoundState.ready
+    
     
     override func didMove(to view: SKView) {
         
@@ -30,18 +36,35 @@ class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        if let touch = touches.first {
-            let location = touch.location(in: self)
-            
-            if bird.contains(location){
+        switch roundState { //to see if the game is ready to launch the first state
+        case .ready:
+            if let touch = touches.first {
+                let location = touch.location(in: self)
                 
-                panRecognizer.isEnabled = false
-                bird.grabbed = true
-                bird.position = location
+                if bird.contains(location){
+                    
+                    panRecognizer.isEnabled = false
+                    bird.grabbed = true
+                    bird.position = location
+                }
             }
+                
+        case .flying:
+            break
+        case .finished:   //I want to reset my camera
+                guard let view = view else{return}
+                roundState = .animating
+                let moveCameraToOld = SKAction.move(to: CGPoint(x: view.bounds.width/2, y:view.bounds.size.height/2), duration: 2.0)
+            
+            moveCameraToOld.timingMode = .easeInEaseOut  //this will slow down the accelaration
+            myCamera.run(moveCameraToOld, completion:{
+                self.panRecognizer.isEnabled = true
+            })
+        case .animating:
+            break
         }
     }
-    
+        
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if let touch = touches.first {
@@ -89,7 +112,9 @@ class GameScene: SKScene {
         
         addCamera()
         
-        physicsBody = SKPhysicsBody(edgeLoopFrom: mapNode.frame)    //making my camera move with my bird!
+        let physicsRect = CGRect(x: 0, y: mapNode.tileSize.height, width: mapNode.frame.size.width, height: mapNode.frame.size.height - mapNode.tileSize.height)
+        
+        physicsBody = SKPhysicsBody(edgeLoopFrom: physicsRect)    //making my camera move with my bird!
         physicsBody?.categoryBitMask = PhysicsCategory.edge
         physicsBody?.contactTestBitMask = PhysicsCategory.bird | PhysicsCategory.block
         physicsBody?.collisionBitMask = PhysicsCategory.all
